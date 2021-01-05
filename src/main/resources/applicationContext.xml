@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	
+	<!--  
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/studyproject?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+		<property name="username" value="root" />
+		<property name="password" value="ss153759!!" />
 
-	<bean id="user" class="com.study.biz.UserTest"/>
-
+		<property name="initialSize" value="0"/>
+		<property name="minIdle" value="0"/>
+		<property name="maxIdle" value="10"/>
+		<property name="maxTotal" value="10"/>
+		<property name="maxWaitMillis" value="1000"/>
+	</bean>	
+	-->
+	
+	<context:component-scan base-package="com.study.biz"></context:component-scan>
+	
+	<!-- 
+	<bean id="user" class="com.study.biz.UserTest">
+		<constructor-arg value="변성재"></constructor-arg>
+		<constructor-arg value="27"></constructor-arg>
+		<property name="email" value="dfdo333@naver.com"></property>
+	</bean>
+	-->
 
 </beans>

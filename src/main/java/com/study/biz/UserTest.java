@@ -1,12 +1,14 @@
 package com.study.biz;
 
+import org.springframework.stereotype.Component;
+
 public class UserTest {
 	private String name;
 	private String email;
 	private int age;
 	
 	public void say() {
-		System.out.println("홀로로로로로로");
+		System.out.println(this.name +"   "+ this.age);
 	}
 
 	public String getName() {

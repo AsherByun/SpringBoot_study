@@ -1,17 +1,22 @@
 package com.study.biz;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class TESTAPI {
-
+	
 	public static void main(String[] args) {
-		AbstractApplicationContext factory = new GenericXmlApplicationContext("applicationContext.xml");
+	
+		daoTEST dao = new daoTEST();
 		
-		UserTest user = (UserTest)factory.getBean("user");
-
-		user.say();
+		List<UserTest> list = dao.selectALL();
+		for (UserTest user: list) {
+			System.out.println(user.getName());
+		}
 	}
 
 }
