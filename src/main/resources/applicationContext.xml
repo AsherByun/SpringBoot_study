@@ -27,6 +27,17 @@
 	
 	<context:component-scan base-package="com.study.biz"></context:component-scan>
 	
+	<bean id="log" class="com.study.biz.aop.LogTest"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.study.biz..*.*(..))" id="allPointcut"/>
+		
+		<aop:aspect ref="log">
+			<aop:before pointcut-ref="allPointcut" method="start"/>
+		</aop:aspect>
+	</aop:config>
+
+
 	<!-- 
 	<bean id="user" class="com.study.biz.UserTest">
 		<constructor-arg value="변성재"></constructor-arg>
@@ -34,5 +45,6 @@
 		<property name="email" value="dfdo333@naver.com"></property>
 	</bean>
 	-->
+
 
 </beans>
