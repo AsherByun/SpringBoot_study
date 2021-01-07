@@ -9,43 +9,66 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
-	
-	<!--  
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/studyproject?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/studyproject?useSSL=false&amp;serverTimezone=Asia/Seoul" />
 		<property name="username" value="root" />
 		<property name="password" value="ss153759!!" />
+		<property name="initialSize" value="0" />
+		<property name="minIdle" value="0" />
+		<property name="maxIdle" value="10" />
+		<property name="maxTotal" value="10" />
+		<property name="maxWaitMillis" value="1000" />
+	</bean>
 
-		<property name="initialSize" value="0"/>
-		<property name="minIdle" value="0"/>
-		<property name="maxIdle" value="10"/>
-		<property name="maxTotal" value="10"/>
-		<property name="maxWaitMillis" value="1000"/>
-	</bean>	
+
+
+
+	<context:component-scan
+		base-package="com.study.biz"></context:component-scan>
+
+	<bean id="log" class="com.study.biz.aop.LogTest" />
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- @Transactional 어노테이션 처리 
+	<tx:annotation-driven transaction-manager="txManager" />
 	-->
-	
-	<context:component-scan base-package="com.study.biz"></context:component-scan>
-	
-	<bean id="log" class="com.study.biz.aop.LogTest"/>
-	
-	<aop:config>
-		<aop:pointcut expression="execution(* com.study.biz..*.*(..))" id="allPointcut"/>
 		
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="selectAll" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>	
+		
+	<aop:config>
+		<aop:pointcut
+			expression="execution(* com.study.biz..*.*(..))" id="allPointcut" />
+		<aop:pointcut
+			expression="execution(* com.study.biz..*.*(..))" id="txPointcut" />
+
+		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
+
 		<aop:aspect ref="log">
-			<aop:before pointcut-ref="allPointcut" method="start"/>
-			<aop:after pointcut-ref="allPointcut" method="end"/>
+			<aop:before pointcut-ref="allPointcut" method="start" />
+			<aop:after pointcut-ref="allPointcut" method="end" />
+			<aop:around pointcut-ref="allPointcut" method="around" />
 		</aop:aspect>
 	</aop:config>
 
 
-	<!-- 
-	<bean id="user" class="com.study.biz.UserTest">
-		<constructor-arg value="변성재"></constructor-arg>
-		<constructor-arg value="27"></constructor-arg>
-		<property name="email" value="dfdo333@naver.com"></property>
-	</bean>
-	-->
+	<!-- <bean id="user" class="com.study.biz.UserTest"> <constructor-arg value="변성재"></constructor-arg> 
+		<constructor-arg value="27"></constructor-arg> <property name="email" value="dfdo333@naver.com"></property> 
+		</bean> -->
 
 
 </beans>

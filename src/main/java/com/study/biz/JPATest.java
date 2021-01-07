@@ -3,10 +3,6 @@ package com.study.biz;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- * Entity implementation class for Entity: JPATest
- *
- */
 @Entity
 @Table(name = "test1")
 public class JPATest implements Serializable {

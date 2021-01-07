@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.study.utils.SqlSessionFactoryBean;
 
@@ -24,7 +25,7 @@ public class daoTEST {
 			System.out.println("asdfasdfasd");
 		}
 	}
-
+	
 	public List<UserTest> selectALL() {
 		return mybatis.selectList("daoTest.getUserTest");
 	}
